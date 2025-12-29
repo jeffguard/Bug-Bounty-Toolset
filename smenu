@@ -135,7 +135,7 @@ admin_menu() {
         Stop_mac_spoof) /bin/sh ~/Scripts/mac_reset.sh ;;
         EditMenu) sudo vi "$SMENU" ;;
         Lock) /usr/bin/vlock ;;
-        Logout) pkill -KILL -u jguard ;;
+        Logout) pkill -KILL -u "YOUR_USERNAME" ;;
         Reboot) sudo systemctl reboot ;;
         Back) main_menu ;;
     esac
