@@ -1,14 +1,16 @@
-# Bug Bounty Hunting Tools
+# Bug Bounty Toolset – Dialog-Based Kali Linux Launcher
 
-Bash-based, dialog-driven menu system designed to streamline common penetration testing, wireless attack, exploitation, and system administration tasks on Kali Linux. It provides a centralized, interactive terminal interface that allows users to quickly launch reconnaissance tools, exploitation frameworks, Wi‑Fi attack scripts, and administrative utilities without memorizing long commands.
+This project is a Bash-based, dialog-driven menu system designed to streamline and organize common bug bounty hunting and penetration testing workflows on Kali Linux.
 
-The script leverages the dialog utility to present a structured menu with multiple categories, including Reconnaissance, Execution, Wireless Attacks, and Administration. Each menu option executes predefined scripts or tools such as Nmap, DNS enumeration, Wapiti, Netdiscover, Metasploit, Aircrack-ng, and MAC spoofing utilities, improving efficiency and workflow during security assessments.
+The tool uses the dialog utility to present a structured, easy-to-navigate terminal interface with clearly defined categories such as:
 
-Signal handling is implemented to prevent accidental interruption (Ctrl+C / Ctrl+Z), ensuring controlled navigation within the menu. The modular design allows easy customization, enabling users to add, remove, or modify tools to fit their specific penetration testing environment.
+Reconnaissance
 
-This tool is ideal for security professionals, penetration testers, and students who want a fast, organized, and user-friendly terminal-based launcher for Kali Linux toolsets.
+Subdomain Enumeration
 
-To use run sudo apt install dialog, place the script in /usr/local/bin, change owner to root and permissions to 755. Launch from terminal by simply typing smenu.
+Web Application Testing
+
+etc.....
 
  ________
 < Enjoy! >
