@@ -1,4 +1,4 @@
-# Pentesting-Power-Menu
+# Bug Bounty Hunting Tools
 
 Bash-based, dialog-driven menu system designed to streamline common penetration testing, wireless attack, exploitation, and system administration tasks on Kali Linux. It provides a centralized, interactive terminal interface that allows users to quickly launch reconnaissance tools, exploitation frameworks, Wi‑Fi attack scripts, and administrative utilities without memorizing long commands.
 
