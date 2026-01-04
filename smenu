@@ -3,145 +3,286 @@
 trap "" SIGTSTP
 trap '' SIGINT
 
-HEIGHT=17
+HEIGHT=19
 CHOICE_HEIGHT=10
-WIDTH=78
+WIDTH=70
 BACKTITLE="Kali Linux"
-TITLE="[ Kali Power Terminal ]"
+TITLE="[ Bug Bounty Toolkit ]"
 
-SMENU="/usr/local/bin/smenu"
-
+########################
+# MAIN MENU
+########################
 main_menu() {
-    CHOICE=$(dialog --clear --no-cancel \
-        --backtitle "$BACKTITLE" \
-        --title "$TITLE" \
-        --menu "Main Menu:" \
-        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-        Recon   "Reconnaissance tools" \
-        Exec    "Execution / Exploitation" \
-        Wifi    "Wireless attacks" \
-        Admin   "Administration" \
-        Shell   "Exit to shell" \
-        2>&1 > /dev/tty)
+    while true; do
+        CHOICE=$(dialog --clear --no-cancel \
+            --backtitle "$BACKTITLE" \
+            --title "$TITLE" \
+            --menu "Main Menu:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Reconnaissance              "Information gathering & OSINT" \
+            Subdomain_Enumeration       "Discover subdomains" \
+            Web_Application_Testing     "Test web applications" \
+            API_Security_Testing        "Test APIs" \
+            Network_Security_Testing    "Network assessments" \
+            Vulnerability_Scanners      "Automated scanners" \
+            Fuzzing_Tools               "Fuzzing utilities" \
+            Exploitation_Tools          "Exploit frameworks" \
+            Reporting_Automation        "Reporting & automation" \
+            Admin                       "System administration" \
+            Exit                        "Exit to shell" \
+            2>&1 > /dev/tty)
 
-    case $CHOICE in
-        Recon) recon_menu ;;
-        Exec) exec_menu ;;
-        Wifi) wifi_menu ;;
-        Admin) admin_menu ;;
-        Shell) exit ;;
-    esac
+        case $CHOICE in
+            Reconnaissance) recon_menu ;;
+            Subdomain_Enumeration) enum_menu ;;
+            Web_Application_Testing) web_menu ;;                                                              
+            API_Security_Testing) api_menu ;;                                                                 
+            Network_Security_Testing) net_menu ;;                                                             
+            Vulnerability_Scanners) vuln_menu ;;                                                              
+            Fuzzing_Tools) fuzz_menu ;;                                                                       
+            Exploitation_Tools) exploit_menu ;;                                                               
+            Reporting_Automation) report_menu ;;                                                              
+            Admin) admin_menu ;;                                                                              
+            Exit) clear; exit ;;                                                                              
+        esac                                                                                                  
+    done                                                                                                      
+}                                                                                                             
+                                                                                                              
+########################                                                                                      
+# RECON                                                                                                       
+########################                                                                                      
+recon_menu() {                                                                                                
+    while true; do                                                                                            
+        CHOICE=$(dialog --clear \                                                                             
+            --backtitle "$BACKTITLE" \
+            --title "[ Reconnaissance ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Amass        "DNS & asset discovery" \
+            Assetfinder "Find related domains" \
+            Hakrawler   "Web crawler" \
+            Back        "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            Amass) amass ;;
+            Assetfinder) assetfinder ;;
+            Hakrawler) hakrawler ;;
+            Back) return ;;
+        esac
+    done
 }
 
-recon_menu() {
-    CHOICE=$(dialog --clear \
-        --backtitle "$BACKTITLE" \
-        --title "[ Reconnaissance ]" \
-        --menu "Select Recon Task:" \
-        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-        nmap    "Nmap scan to detect software versions" \
-        dnsenum "DNS Enumeration" \
-        wapiti  "Web application vulnerability scanner" \
-        discover "Bash scripts to automate various penetration testing tasks" \
-        redhawk "Information Gathering And Vulnerability Scanning" \
-        sherlock "Hunt down social media accounts by username" \
-        netdisco "Discover active hosts (devices) on a local network " \
-        nessus   "Vulnerabilities discovery" \
-        Harvester "Gather open source intelligence (OSINT) on a company or domain " \
-        Back    "Return to main menu" \
-        2>&1 > /dev/tty)
+########################
+# SUBDOMAIN ENUM
+########################
+enum_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Subdomain Enumeration ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Subfinder "Fast passive enumeration" \
+            Findomain "Multi-source enumeration" \
+            Back      "Return to main menu" \
+            2>&1 > /dev/tty)
 
-    case $CHOICE in
-        nmap) /bin/sh ~/Scripts/vulnerabilities.sh ;;
-        dnsenum) /bin/sh ~/Scripts/dnsenum.sh ;;
-        wapiti) /bin/sh ~/Scripts/wapiti.sh ;;
-        discover) /bin/sh ~/Tools/discover/discover.sh ;;
-        redhawk) /bin/sh ~/Scripts/rhawk.sh ;;
-        sherlock) /bin/sh ~/Scripts/sherlock.sh ;;
-        netdisco) /bin/sh ~/Scripts/netdiscover.sh ;;
-        nessus) /bin/sh ~/Scripts/nessus.sh ;;
-        Harvester) /bin/sh ~/Scripts/harvester.sh ;;
-        Back) main_menu ;;
-    esac
-
-    recon_menu
+        case $CHOICE in
+            Subfinder) subfinder ;;
+            Findomain) findomain ;;
+            Back) return ;;
+        esac
+    done
 }
 
-exec_menu() {
-    CHOICE=$(dialog --clear \
-        --backtitle "$BACKTITLE" \
-        --title "[ Execution ]" \
-        --menu "Select Execution Task:" \
-        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-        metasploit "Launch Metasploit" \
-        msfvenom   "MSFvenom payloads" \
-        Back       "Return to main menu" \
-        2>&1 > /dev/tty)
+########################
+# WEB APP TESTING
+########################
+web_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Web Application Testing ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Nikto   "Web server scanner" \
+            Wapiti  "Web vulnerability scanner" \
+            Back    "Return to main menu" \
+            2>&1 > /dev/tty)
 
-    case $CHOICE in
-        metasploit) msfconsole ;;
-        msfvenom) msfvenom ;;
-        Back) main_menu ;;
-    esac
-
-    exec_menu
+        case $CHOICE in
+            Nikto) nikto ;;
+            Wapiti) wapiti ;;
+            Back) return ;;
+        esac
+    done
 }
 
-wifi_menu() {
-    CHOICE=$(dialog --clear \
-        --backtitle "$BACKTITLE" \
-        --title "[ WiFi ]" \
-        --menu "Select Wireless Task:" \
-        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-        monitor_en  "Enable monitor mode" \
-        monitor_dis "Disable monitor mode" \
-        airodump "Scan WIFI networks and write file" \
-        de_auth  "Deauthenticate connected devices" \
-        aircrack "Crack WPA handshake" \
-        Back    "Return to main menu" \
-        2>&1 > /dev/tty)
+########################
+# API TESTING
+########################
+api_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ API Security Testing ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Kiterunner "API endpoint discovery" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
 
-    case $CHOICE in
-        monitor_en) /bin/sh ~/Scripts/monitor_mode.sh ;;
-        monitor_dis) /bin/sh ~/Scripts/restart_networkmanager.sh ;;
-        airodump) /bin/sh ~/Scripts/airodump_capture.sh ;;
-        de_auth) /bin/sh ~/Scripts/kick_devices.sh ;;
-        aircrack) /bin/sh ~/Scripts/crack.sh ;;
-        Back) main_menu ;;
-    esac
-
-    wifi_menu
+        case $CHOICE in
+            Kiterunner) kiterunner ;;
+            Back) return ;;
+        esac
+    done
 }
 
+########################
+# NETWORK
+########################
+net_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Network Security Testing ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Nmap "Network mapper" \
+            Netcat "Network utility" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            Nmap) nmap ;;
+            Netcat) nc ;;
+            Back) return ;;
+        esac
+    done
+}
+
+########################
+# VULNERABILITY SCANNERS
+########################
+vuln_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Vulnerability Scanners ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Nessus "Enterprise vulnerability scanner" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            Nessus) nessus ;;
+            Back) return ;;
+        esac
+    done
+}
+
+########################
+# FUZZING
+########################
+fuzz_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Fuzzing Tools ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            FFUF "Fast web fuzzer" \
+            WFuzz "Web application fuzzer" \
+            Gobuster "Directory & DNS buster" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            FFUF) ffuf ;;
+            WFuzz) wfuzz ;;
+            Gobuster) gobuster ;;
+            Back) return ;;
+        esac
+    done
+}
+
+########################
+# EXPLOITATION
+########################
+exploit_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Exploitation Tools ]" \
+            --menu "Select Tool:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Metasploit "Exploit framework" \
+            SQLmap "Automated SQL injection" \
+            commix "Automated All-in-One OS Command Injection Exploitation Tool" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            Metasploit) msfconsole ;;
+            SQLmap) sqlmap ;;
+            commix) commix ;;
+            Back) return ;;
+        esac
+    done
+}
+
+########################
+# REPORTING
+########################
+report_menu() {
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Reporting & Automation ]" \
+            --menu "Select Option:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Generate_Report "Create report template" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
+
+        case $CHOICE in
+            Generate_Report) vi report.md ;;
+            Back) return ;;
+        esac
+    done
+}
+
+########################
+# ADMIN
+########################
 admin_menu() {
-    CHOICE=$(dialog --clear \
-        --backtitle "$BACKTITLE" \
-        --title "[ Administration ]" \
-        --menu "System Administration:" \
-        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-        Start_aut "Start Auto IP Changer" \
-        Start_mac_spoof "Spoof MAC Address" \
-        Stop_mac_spoof  "Set MAC Address back to vendor" \
-        EditMenu "Edit this menu" \
-        Lock     "Lock terminal" \
-        Logout   "Logout session" \
-        Reboot   "Reboot system" \
-        Back     "Return to main menu" \
-        2>&1 > /dev/tty)
+    while true; do
+        CHOICE=$(dialog --clear \
+            --backtitle "$BACKTITLE" \
+            --title "[ Administration ]" \
+            --menu "System Administration:" \
+            $HEIGHT $WIDTH $CHOICE_HEIGHT \
+            Menu "Edit menu" \
+            Lock "Lock terminal" \
+            Logout "Logout user" \
+            Reboot "Reboot system" \
+            Back "Return to main menu" \
+            2>&1 > /dev/tty)
 
-    case $CHOICE in
-        Start_aut) sudo aut ;;
-        Start_mac_spoof) /bin/sh ~/Scripts/mac_spoofer.sh ;;
-        Stop_mac_spoof) /bin/sh ~/Scripts/mac_reset.sh ;;
-        EditMenu) sudo vi "$SMENU" ;;
-        Lock) /usr/bin/vlock ;;
-        Logout) pkill -KILL -u "YOUR_USERNAME" ;;
-        Reboot) sudo systemctl reboot ;;
-        Back) main_menu ;;
-    esac
-
-    admin_menu
+        case $CHOICE in
+            Menu) sudo vi /usr/local/bin/bug ;;
+            Lock) vlock ;;
+            Logout) pkill -KILL -u "$USER" ;;
+            Reboot) sudo reboot ;;
+            Back) return ;;
+        esac
+    done
 }
 
-# Start menu
+########################
+# START
+########################
 main_menu
