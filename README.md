@@ -18,4 +18,4 @@ To use run sudo apt install dialog, place the script in /usr/local/bin, change o
             (__)\       )\/\
              U  ||----w |
                 ||     ||
-<img width="821" height="472" alt="menu" src="https://github.com/user-attachments/assets/5b824835-494e-4a55-b96f-1ba2cc8d822c" />
+<img width="914" height="484" alt="bbtk" src="https://github.com/user-attachments/assets/84fc723a-ed89-4f4e-95e2-8b3e2eeaf70c" />
